@@ -35,6 +35,15 @@ MIN_SCALE_slider.addEventListener("touchend", onSliderChange, false);
 const BODY = document.getElementById('BODY');
 BODY.addEventListener( 'change', onSliderChange, false )
 
+const NECKLACEEE = document.getElementById('NECKLACEEE');
+NECKLACEEE.addEventListener( 'change', onSliderChange, false )
+
+const DRESSSS = document.getElementById('DRESSSS');
+DRESSSS.addEventListener( 'change', onSliderChange, false )
+
+const BRACELET = document.getElementById('BRACELET');
+BRACELET.addEventListener( 'change', onSliderChange, false )
+
 
 const loader = new Rhino3dmLoader();
 loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/");
@@ -83,7 +92,17 @@ async function compute() {
   const param7 = new RhinoCompute.Grasshopper.DataTree('BODY')
   param7.append([0], [BODY.checked])
 
+  const param8 = new RhinoCompute.Grasshopper.DataTree('NECKLACEEE')
+  param8.append([0], [NECKLACEEE.checked])
 
+  const param9 = new RhinoCompute.Grasshopper.DataTree('DRESSSS')
+  param9.append([0], [DRESSSS.checked])
+
+  const param10 = new RhinoCompute.Grasshopper.DataTree('BRACELET')
+  param10.append([0], [BRACELET.checked])
+
+  const downloadButton = document.getElementById("downloadButton")
+  downloadButton.onclick = download
 
   // clear values
   const trees = [];
@@ -94,8 +113,9 @@ async function compute() {
   trees.push(param5);
   trees.push(param6);
   trees.push(param7);
-
-
+  trees.push(param8);
+  trees.push(param9);
+  trees.push(param10);
   const res = await RhinoCompute.Grasshopper.evaluateDefinition(
     definition,
     trees
@@ -219,6 +239,15 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
+}
+
+function download () {
+  let buffer = doc.toByteArray()
+  let blob = new Blob([ buffer ], { type: "application/octect-stream" })
+  let link = document.createElement('a')
+  link.href = window.URL.createObjectURL(blob)
+  link.download = 'CLOTH_16.3dm'
+  link.click()
 }
 
 function onWindowResize() {

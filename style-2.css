@@ -10,6 +10,9 @@ body{padding: 50px;}
   max-width: 200px;
 }
 
+.button11{border:1.5px;border-color: black;border-style: solid;width: fit-content;background-color:white;}
+.button11:hover{text-decoration: underline;}
+
 #button-1{background-color: white;color: black;}
 
 .slider{margin-top: 5px;margin-bottom: 15px;}
