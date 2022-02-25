@@ -32,6 +32,10 @@ const MIN_SCALE_slider = document.getElementById("MIN_SCALE");
 MIN_SCALE_slider.addEventListener("mouseup", onSliderChange, false);
 MIN_SCALE_slider.addEventListener("touchend", onSliderChange, false);
 
+const BODY = document.getElementById('BODY');
+BODY.addEventListener( 'change', onSliderChange, false )
+
+
 const loader = new Rhino3dmLoader();
 loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/");
 
@@ -76,6 +80,9 @@ async function compute() {
   const param6 = new RhinoCompute.Grasshopper.DataTree("MIN_SCALE");
   param6.append([0], [MIN_SCALE_slider.valueAsNumber]);
 
+  const param7 = new RhinoCompute.Grasshopper.DataTree('BODY')
+  param7.append([0], [BODY.checked])
+
 
 
   // clear values
@@ -86,7 +93,7 @@ async function compute() {
   trees.push(param4);
   trees.push(param5);
   trees.push(param6);
-
+  trees.push(param7);
 
 
   const res = await RhinoCompute.Grasshopper.evaluateDefinition(
